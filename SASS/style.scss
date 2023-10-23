@@ -1,0 +1,284 @@
+// Nested css
+
+// .demo p {
+//   background: blue;
+// }
+
+// .demo {
+//   background: red;
+
+//   p {
+//     background-color: blue;
+
+//     span {
+//       background: orange;
+//     }
+//   }
+// }
+
+// Tạo biến (variable)
+// color 
+$color_blue_1 : #2B71DC;
+$color_white_1: #F5F9FD;
+$color_blue_2: #1E345E;
+$color_yellow_1: #F9D211;
+
+// font-size
+$fs_1 : 13px;
+$fs_2: 16px;
+$fs_3: 18px;
+$fs_4: 20px;
+$fs_5: 24px;
+$fs_6: 30px;
+$fs_7: 60px;
+
+// font-weight
+$fw_300: 300;
+$fw_400 : 400;
+$fw_500 : 500;
+$fw_bold : bold;
+
+// padding 
+$py_header : 30px;
+$py_section : 50px;
+$p_productItem :30px;
+
+// Mixin 
+@mixin styleText ($fs, $color, $fw) {
+  font-size: $fs;
+  font-weight: $fw;
+  color: $color;
+}
+
+@mixin styleButton ($bg, $color, $p) {
+  // $bg = white , $color = blue
+  border: 2px solid $color_blue_1;
+  background-color: $bg;
+  color: $color;
+  padding: $p;
+  border-radius: 8px;
+  transition: all 0.5s;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $color;
+    color: $bg;
+  }
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 1140px;
+}
+// layout headr
+
+header {
+  background-color: $color_white_1;
+  padding: $py_header 0;
+  box-shadow: #2b72dc5f 0px 2px 8px 0px;
+
+  .header_content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .logo {
+
+      a {
+        @include styleText($fs_5, $color_blue_1, $fw_bold);
+        text-decoration: none;
+      }
+    }
+
+    nav {
+      ul {
+        list-style: none;
+        display: flex;
+
+        li {
+          margin: 0 10px;
+          position: relative;
+
+          // parent selector 
+          // parent selector(&) đại diện cho lớp cha đang nằm ngoài, có thể sử dụng để đại diện cho lớp cha và trỏ tới các thuộc tính
+          &::before {
+            content: "";
+            width: 0;
+            height: 3px;
+            background-color: red;
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            transition: all 0.5s;
+          }
+
+          &:hover::before {
+            width: 100%;
+          }
+
+          &.active {
+            &::before {
+              width: 100%;
+            }
+
+            a {
+              color: $color_blue_1
+            }
+          }
+
+          a {
+            @include styleText($fs_2, $color_blue_2, $fw_300 );
+            text-decoration: none;
+          }
+        }
+
+        // li:before {
+        //   content: "";
+        // }
+      }
+    }
+  }
+}
+
+// layout banner 
+
+.banner {
+  background-image: url('./../hinhAnh/product-header-bg.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom;
+  padding: $py_section 0;
+
+  .banner_content {
+    display: flex;
+    align-items: center;
+
+    .content_left {
+      h1 {
+        @include styleText($fs_7, $color_blue_1, $fw_bold)
+      }
+
+      .sub_title {
+        @include styleText($fs_4, $color_blue_2 , $fw_bold );
+        margin: 10px 0;
+      }
+
+      p {
+        @include styleText($fs_3, $color_blue_2 , $fw_400 )
+      }
+
+      .group_button {
+        margin-top: 10px;
+
+        button:first-child {
+          @include styleButton(white, $color_blue_1 , 10px 25px);
+        }
+
+        button:last-child {
+          @include styleButton($color_blue_1, white, 10px 25px);
+          box-shadow: rgba(255, 255, 255, 0.349) 1.95px 1.95px 2.6px;
+          margin-left: 5px;
+        }
+      }
+    }
+
+    .content_right {
+      img {
+        height: 500px;
+      }
+    }
+  }
+}
+
+
+// layout product
+.product{
+    padding: $py_section 0;
+    .product_title{
+        h2{
+            @include styleText($fs_6,$color_blue_2,$fw_bold );
+            text-align: center;
+        }
+    }
+    .product_content{
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        gap: 30px;
+        margin-top: 20px;
+        .product_item{
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            border-radius: 8px;
+            padding: $p_productItem;
+            animation-name: zoomIn;
+            animation-duration: 2s;
+            opacity: 0;
+            animation-fill-mode: forwards;
+            @for $i from 1 through 5 {
+                &:nth-child(#{$i+1}) {
+                  animation-delay:($i*0.5s);
+                }
+              }
+
+            img{
+                width: 100%;
+                box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+            }
+            h3{
+                @include styleText($fs_5,$color_blue_1,$fw_bold );
+                display:flex;
+                justify-content: space-between;
+                margin-top: 10px;
+            }
+            p{
+                @include styleText($fs_2,$color_blue_2,$fw_bold );
+                padding: 10px 0;
+
+            }
+            .rate_buy{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                .rate{
+                    i{
+                        color: #F9D211;
+                    }
+                }
+                .buy_now{
+                    @include styleButton($color_blue_1,white, 10px 25px );
+                }
+            }
+        }  
+    }
+}
+
+@keyframes zoomIn{
+    from{
+        opacity: 0;
+        transform: scale(0);
+    }
+    to{
+        opacity: 1;
+        transform: scale(1);
+
+    }
+}
+
+// // layout footer
+footer{
+    background-color: #2B71DC;
+    height: 100px;
+    .footer_content{
+        padding: 40px;
+        text-align: center;
+        h3{
+            color: white;
+        }
+    }
+}
