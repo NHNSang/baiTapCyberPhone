@@ -1,3 +1,13 @@
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
 * {
   padding: 0;
   margin: 0;
@@ -10,6 +20,12 @@
   max-width: 1140px;
 }
 
+@media screen and (max-width: 576px) {
+  .container {
+    width: 100%;
+    padding: 0 15px;
+  }
+}
 header {
   background-color: #F5F9FD;
   padding: 30px 0;
@@ -25,6 +41,11 @@ header .header_content .logo a {
   font-weight: bold;
   color: #2B71DC;
   text-decoration: none;
+}
+@media screen and (max-width: 576px) {
+  header .header_content nav {
+    display: none;
+  }
 }
 header .header_content nav ul {
   list-style: none;
@@ -71,10 +92,20 @@ header .header_content nav ul li a {
   display: flex;
   align-items: center;
 }
+@media screen and (max-width: 576px) {
+  .banner .banner_content {
+    display: block;
+  }
+}
 .banner .banner_content .content_left h1 {
   font-size: 60px;
   font-weight: bold;
   color: #2B71DC;
+}
+@media screen and (max-width: 576px) {
+  .banner .banner_content .content_left h1 {
+    font-size: 50px;
+  }
 }
 .banner .banner_content .content_left .sub_title {
   font-size: 20px;
@@ -121,6 +152,13 @@ header .header_content nav ul li a {
 .banner .banner_content .content_right img {
   height: 500px;
 }
+@media screen and (max-width: 576px) {
+  .banner .banner_content .content_right img {
+    width: 100%;
+    object-fit: cover;
+    margin-top: 50px;
+  }
+}
 
 .product {
   padding: 50px 0;
@@ -136,6 +174,11 @@ header .header_content nav ul li a {
   grid-template-columns: repeat(3, 1fr);
   gap: 30px;
   margin-top: 20px;
+}
+@media screen and (max-width: 576px) {
+  .product .product_content {
+    grid-template-columns: 1fr;
+  }
 }
 .product .product_content .product_item {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -201,16 +244,6 @@ header .header_content nav ul li a {
   color: #2B71DC;
 }
 
-@keyframes zoomIn {
-  from {
-    opacity: 0;
-    transform: scale(0);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
 footer {
   background-color: #2B71DC;
   height: 100px;
